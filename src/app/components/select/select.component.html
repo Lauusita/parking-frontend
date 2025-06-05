@@ -1,0 +1,104 @@
+<head>
+  <meta charset="UTF-8">
+  <title>parkingPRO - Ingreso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-[#F5F7FA] via-[#d9eae3] to-[#F5F7FA] font-roboto text-[#1B1B1E] min-h-screen">
+
+  <!-- Flecha para volver -->
+  <a routerLink="/" 
+     class="fixed top-6 left-6 z-50 bg-gradient-to-r from-[#2D6A4F] to-[#40916C] text-white text-xl p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+
+  <div class="min-h-screen flex flex-col lg:flex-row">
+
+    <!-- Info Section -->
+    <div class="flex-1 bg-white flex flex-col justify-center items-center text-center p-10 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-white via-[#d9eae3] to-[#F5F7FA] opacity-40"></div>
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NDEgMC0xOCA4LjA1OS0xOCAxOHM4LjA1OSAxOCAxOCAxOCAxOC04LjA1OSAxOC0xOC04LjA1OS0xOC0xOC0xOHptMCAzMGMtNi42MjcgMC0xMi01LjM3My0xMi0xMnM1LjM3My0xMiAxMi0xMiAxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMnoiIGZpbGw9IiMyRDZBNEYiIGZpbGwtb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-10"></div>
+      <img [src]="logo" alt="Logo parkingPRO" class="w-40 h-40 mb-8 animate-float relative z-10">
+      <h1 class="text-6xl font-extrabold text-[#2D6A4F] mb-6 relative z-10 leading-tight">
+        Bienvenido a <span class="text-[#40916C]">parkingPRO</span>
+      </h1>
+      <p class="text-xl text-[#6C757D] max-w-2xl leading-relaxed relative z-10">
+        Encuentra o publica parqueaderos con facilidad. Selecciona tu rol para comenzar.
+      </p>
+      <div class="mt-10 flex space-x-6 relative z-10">
+        <button onclick="showCredits()" 
+                class="bg-white text-[#2D6A4F] px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-[#F5F7FA] transition-all duration-300 transform hover:scale-105 border border-[#2D6A4F]">
+          Más Información
+        </button>
+      </div>
+      <div id="credits" class="hidden mt-6 text-[#6C757D] text-sm relative z-10 animate-fade-in">
+        Diseñado por: Sebastian Rojas, Laura Arteta y Sheyla Ordoñez.
+      </div>
+    </div>
+
+    <!-- Login Section -->
+    <div class="flex-1 bg-gradient-to-br from-[#2D6A4F] via-[#40916C] to-[#2D6A4F] text-white flex items-center justify-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NDEgMC0xOCA4LjA1OS0xOCAxOHM4LjA1OSAxOCAxOCAxOCAxOC04LjA1OSAxOC0xOC04LjA1OS0xOC0xOC0xOHptMCAzMGMtNi42MjcgMC0xMi01LjM3My0xMi0xMnM1LjM3My0xMiAxMi0xMiAxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMnoiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-10"></div>
+      <div class="relative z-10 w-11/12 max-w-lg space-y-10">
+        <h2 class="text-4xl font-bold text-center mb-12">Iniciar Sesión como</h2>
+        <div class="grid grid-cols-1 gap-8">
+
+          <!-- Propietario -->
+          <div class="bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-8 text-center hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-white/20">
+            <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-warehouse text-4xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">Propietario</h3>
+            <p class="text-white/80 mb-6">Publica tu espacio de parqueo disponible.</p>
+            <a routerLink="/create-account/propietario" 
+               class="inline-block bg-white text-[#2D6A4F] py-3 px-8 rounded-full hover:bg-[#F5F7FA] transition-all duration-300 shadow-lg hover:shadow-xl font-medium">
+              Ingresar
+            </a>
+          </div>
+
+          <!-- Conductor -->
+          <div class="bg-white/10 backdrop-blur-lg shadow-xl rounded-2xl p-8 text-center hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-white/20">
+            <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-car text-4xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">Conductor</h3>
+            <p class="text-white/80 mb-6">Busca parqueaderos y reserva desde la web.</p>
+            <a routerLink="/create-account/conductor" 
+               class="inline-block bg-white text-[#2D6A4F] py-3 px-8 rounded-full hover:bg-[#F5F7FA] transition-all duration-300 shadow-lg hover:shadow-xl font-medium">
+              Ingresar
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.5s ease-out forwards;
+    }
+  </style>
+
+  <script>
+    function showCredits() {
+      document.getElementById('credits').classList.remove('hidden');
+    }
+  </script>
+
+</body>

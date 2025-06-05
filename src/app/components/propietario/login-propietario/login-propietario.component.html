@@ -1,0 +1,254 @@
+<body class="h-full">
+  <div
+    class="bg-gradient-to-br from-[#2D6A4F] via-[#40916C] to-[#2D6A4F] flex flex-col justify-center items-center min-h-screen px-6 py-12 lg:px-8 relative overflow-hidden">
+    <!-- Patrón de fondo -->
+    <div
+      class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NDEgMC0xOCA4LjA1OS0xOCAxOHM4LjA1OSAxOCAxOCAxOCAxOC04LjA1OSAxOC0xOC04LjA1OS0xOC0xOC0xOHptMCAzMGMtNi42MjcgMC0xMi01LjM3My0xMi0xMnM1LjM3My0xMiAxMi0xMiAxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMnoiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-10">
+    </div>
+
+    <!-- Logo y título -->
+    <div class="flex gap-3 items-center justify-center mx-auto mb-12 h-12 w-auto relative z-10">
+      <fa-icon [icon]='icons.logo' class="text-5xl text-white animate-float"></fa-icon>
+      <span class="text-5xl text-white font-bold tracking-wide">Parking pro</span>
+    </div>
+
+    <div class="bg-white/10 backdrop-blur-lg rounded-2xl sm:mx-auto sm:w-full sm:max-w-md shadow-2xl relative z-10">
+
+      <!-- TOOGLE -->
+      <div class="sm:mx-auto sm:w-full sm:max-w-md rounded-t-2xl">
+        <div class="flex flex-col items-center space-y-4">
+          <div class="relative w-full h-12 p-1 cursor-pointer" (click)="toggleState()">
+            <div
+              class="absolute w-[calc(100%_/_2)] h-11 bg-white/20 rounded-t-xl transition-transform duration-300 ease-in-out"
+              [ngClass]="{
+                  'translate-x-0': !isSignUp,
+                  'translate-x-[95%] sm:translate-x-[96.5%]': isSignUp
+                }">
+            </div>
+            <div class="relative flex justify-between items-center h-full mt-1">
+              <span class="flex-1 text-center z-10 transition-colors duration-300 text-base font-medium" [ngClass]="{
+                      'text-white': !isSignUp,
+                      'text-white/60': isSignUp
+                    }">
+                Iniciar Sesión
+              </span>
+              <span class="flex-1 text-center z-10 transition-colors duration-300 text-base font-medium" [ngClass]="{
+                      'text-white': isSignUp,
+                      'text-white/60': !isSignUp
+                    }">
+                Registrarse
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm:mx-auto sm:w-full sm:max-w-md p-1 pt-0">
+        <div class="bg-white/10 backdrop-blur-lg p-10 rounded-b-2xl min-w-[20rem]">
+          <h2 class="mb-8 text-center text-3xl font-bold tracking-tight text-white">
+            {{ !isSignUp ? "Inicia sesión en tu cuenta" : "Crea una cuenta"}}
+          </h2>
+
+          <form class="space-y-6" [formGroup]="propietarioForm" (ngSubmit)="onSubmit()">
+
+            @if (isSignUp) {
+            <div class="flex gap-x-4 sm:flex-row flex-col">
+              <div class="w-full">
+                <label for="nombre" class="block text-sm font-medium text-white mb-2">Nombre</label>
+                <div class="relative">
+                  <input formControlName="nombre" id="nombre" name="nombre" type="text" autocomplete="name" required
+                    class="block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-white/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white/50 sm:text-sm outline-0 bg-white/10 backdrop-blur-sm text-white">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <i class="fas fa-user text-white/50"></i>
+                  </div>
+                </div>
+                @if (nombre?.errors?.['required'] && nombre?.touched) {
+                <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                  <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                  <span class="text-xs">Campo requerido</span>
+                </div>
+                }
+              </div>
+              <div class="w-full mt-6 sm:mt-0">
+                <label for="apellido" class="block text-sm font-medium text-white mb-2">Apellido</label>
+                <div class="relative">
+                  <input formControlName="apellido" id="apellido" name="apellido" type="text" autocomplete="cc-name"
+                    required
+                    class="block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-white/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white/50 sm:text-sm outline-0 bg-white/10 backdrop-blur-sm text-white">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <i class="fas fa-user text-white/50"></i>
+                  </div>
+                </div>
+                @if (apellido?.errors?.['required'] && apellido?.touched) {
+                <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                  <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                  <span class="text-xs">Campo requerido</span>
+                </div>
+                }
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-x-4">
+              <div>
+                <label for="tipoDocumento" class="block text-sm font-medium text-white mb-2">Tipo de Documento</label>
+                <div class="relative">
+                  <select formControlName="tipoDocumento" name="tipoDocumento" id="tipoDocumento"
+                    autocomplete="tipoDocumento" required
+                    class="block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-white/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white/50 sm:text-sm outline-0 bg-white/10 backdrop-blur-sm text-white appearance-none">
+                    <option value="CC">CC</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                    <option value="NIT">NIT</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <i class="fas fa-chevron-down text-white/50"></i>
+                  </div>
+                </div>
+                @if (tipoDocumento?.errors?.['required'] && tipoDocumento?.touched) {
+                <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                  <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                  <span class="text-xs">Campo requerido</span>
+                </div>
+                }
+              </div>
+              <div>
+                <label for="numeroDocumento" class="block text-sm font-medium text-white mb-2">Número de
+                  Documento</label>
+                <div class="relative">
+                  <input formControlName="numeroDocumento" id="numeroDocumento" name="numeroDocumento"
+                    autocomplete="numeroDocumento" required
+                    class="block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-white/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white/50 sm:text-sm outline-0 bg-white/10 backdrop-blur-sm text-white">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <i class="fas fa-id-card text-white/50"></i>
+                  </div>
+                </div>
+                @if (numeroDocumento?.errors?.['required'] && numeroDocumento?.touched) {
+                <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                  <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                  <span class="text-xs">Campo requerido</span>
+                </div>
+                }
+              </div>
+            </div>
+
+            <div>
+              <label for="telefono" class="block text-sm font-medium text-white mb-2">Teléfono</label>
+              <div class="relative">
+                <input formControlName="telefono" id="telefono" name="telefono" type="number" autocomplete="tel"
+                  required
+                  class="block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-white/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white/50 sm:text-sm outline-0 bg-white/10 backdrop-blur-sm text-white">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <i class="fas fa-phone text-white/50"></i>
+                </div>
+              </div>
+              @if (telefono?.errors?.['required'] && telefono?.touched) {
+              <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                <span class="text-xs">Campo requerido</span>
+              </div>
+              }
+            </div>
+            }
+
+            <div>
+              <label for="correo" class="block text-sm font-medium text-white mb-2">Correo electrónico</label>
+              <div class="relative">
+                <input formControlName="correo" id="correo" name="correo" type="email" autocomplete="email" required
+                  class="block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-white/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white/50 sm:text-sm outline-0 bg-white/10 backdrop-blur-sm text-white">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <i class="fas fa-envelope text-white/50"></i>
+                </div>
+              </div>
+              @if (correo?.errors?.['required'] && correo?.touched) {
+              <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                <span class="text-xs">Campo requerido</span>
+              </div>
+              }
+              @if (correo?.errors?.['correo'] && correo?.touched) {
+              <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                <span class="text-xs">Correo electrónico inválido</span>
+              </div>
+              }
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="contrasena" class="block text-sm font-medium text-white">Contraseña</label>
+              </div>
+              <div class="relative">
+                <input formControlName="contrasena" id="contrasena" name="contrasena" type="password"
+                  autocomplete="current-password" required
+                  class="block w-full rounded-xl border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-white/20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white/50 sm:text-sm outline-0 bg-white/10 backdrop-blur-sm text-white">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <i class="fas fa-lock text-white/50"></i>
+                </div>
+              </div>
+              @if (contrasena?.errors?.['required'] && contrasena?.touched) {
+              <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                <span class="text-xs">Campo requerido</span>
+              </div>
+              }
+              @if (contrasena?.errors?.['minlength'] && contrasena?.touched) {
+              <div class="flex animate-fall text-red-300 transition-all duration-500 gap-1 mt-1">
+                <fa-icon [icon]='icons.warning' class="text-xs"></fa-icon>
+                <span class="text-xs">La contraseña debe tener al menos 6 caracteres</span>
+              </div>
+              }
+            </div>
+
+            <div>
+              <button type="submit"
+                class="flex w-full justify-center rounded-xl bg-white px-4 py-3 text-base font-semibold text-[#2D6A4F] shadow-lg hover:bg-white/90 hover:shadow-xl transition-all duration-300">
+                {{ isSignUp ? "Crear cuenta" : "Iniciar sesión"}}
+              </button>
+            </div>
+          </form>
+
+          <p class="mt-8 text-center text-sm text-white/80">
+            <a routerLink="/select" class="font-semibold text-white hover:text-white/90 transition-colors duration-300">
+              REGRESA
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes fall {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fall {
+      animation: fall 0.3s ease-out forwards;
+    }
+  </style>
+</body>

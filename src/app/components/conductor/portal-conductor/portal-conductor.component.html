@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-white flex flex-col">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#40916C] via-[#52B788] to-[#1B4332] shadow-lg p-4 flex justify-between items-center border-b border-green-400/30">
+    <div class="flex items-center gap-3">
+      <fa-icon [icon]="parkingIcon" class="text-3xl text-green-100 drop-shadow"></fa-icon>
+      <h1 class="text-2xl font-bold text-white tracking-wide drop-shadow">Parking Pro</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <button routerLink="/create-account/conductor" (click)="close()" class="bg-green-100 text-green-900 px-5 py-2 rounded-full font-semibold shadow hover:bg-green-200 transition">
+        Cerrar Sesión
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex flex-col items-center justify-center text-center px-4 py-12">
+    <h2 class="text-4xl font-extrabold text-green-900 mb-4 drop-shadow animate-fade-in">¡Bienvenido a tu portal, {{this.nombre}}</h2>
+    <p class="text-lg text-green-800/80 max-w-2xl mb-12 animate-fade-in">
+      Aquí podrás gestionar tu cuenta, acceder a tus reservas y mantenerte informado. Explora el menú para comenzar.
+    </p>
+
+    <!-- Feature Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6 justify-items-center">
+      <div routerLink="/conductor/parqueaderos" class="flex flex-col items-center justify-center w-40 h-40 p-6 bg-green-50 border border-green-200 shadow-xl rounded-xl hover:scale-110 hover:bg-green-100 transition-all duration-300 cursor-pointer animate-float">
+        <fa-icon [icon]="parkingIcon" class="text-4xl text-green-600 mb-3"></fa-icon>
+        <span class="text-green-900 font-semibold">Parqueaderos</span>
+      </div>
+      <div routerLink="/conductor/listar" class="flex flex-col items-center justify-center w-40 h-40 p-6 bg-green-50 border border-green-200 shadow-xl rounded-xl hover:scale-110 hover:bg-green-100 transition-all duration-300 cursor-pointer animate-float-delay-1">
+        <fa-icon [icon]="calendarIcon" class="text-4xl text-green-600 mb-3"></fa-icon>
+        <span class="text-green-900 font-semibold">Mis Reservas</span>
+      </div>
+      <div routerLink="/conductor/perfil" class="flex flex-col items-center justify-center w-40 h-40 p-6 bg-green-50 border border-green-200 shadow-xl rounded-xl hover:scale-110 hover:bg-green-100 transition-all duration-300 cursor-pointer animate-float-delay-3">
+        <fa-icon [icon]="userIcon" class="text-4xl text-green-600 mb-3"></fa-icon>
+        <a class="text-green-900 font-semibold">Cuenta</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-[#40916C] via-[#52B788] to-[#1B4332] border-t border-green-400/30 backdrop-blur-md text-center text-sm text-white py-4">
+    © 2025 Parking Pro. Todos los derechos reservados.
+  </footer>
+
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 1s ease-out;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-float-delay-1 { animation: float 3s ease-in-out infinite 0.2s; }
+    .animate-float-delay-2 { animation: float 3s ease-in-out infinite 0.4s; }
+    .animate-float-delay-3 { animation: float 3s ease-in-out infinite 0.6s; }
+  </style>
+</div>

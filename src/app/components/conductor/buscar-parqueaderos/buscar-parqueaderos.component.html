@@ -1,0 +1,154 @@
+<div class="min-h-screen bg-white flex flex-col">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#40916C] via-[#52B788] to-[#1B4332] shadow-lg p-4">
+    <div class="flex items-center justify-between max-w-7xl mx-auto">
+      <h1 class="text-2xl font-bold text-white">Buscar Parqueaderos</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-4 py-8 flex flex-col items-center">
+    <form class="flex flex-1 max-w-5xl space-x-3 text-xs font-normal text-gray-700">
+      <label class="flex flex-col flex-grow relative" for="location">
+        <span class="mb-1 text-[10px] font-normal text-gray-500">Donde necesitas parquear?</span>
+        <div class="relative">
+          <input
+            class="w-full border border-gray-300 rounded-md pl-8 pr-8 py-2 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+            id="location" type="text" value="Barranquilla" />
+          <i class="fas fa-search absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+          <button aria-label="Clear location"
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" type="button">
+            <i class="fas fa-times text-xs"></i>
+          </button>
+        </div>
+      </label>
+
+      <label class="flex flex-col w-72 relative" for="dateTime">
+        <span class="mb-1 text-[10px] font-normal text-gray-500">Cuantos Dias/horas necesitas?</span>
+        <button
+          class="w-full border border-gray-300 rounded-md pl-9 pr-3 py-2 text-sm text-gray-900 flex items-center justify-between focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          type="button">
+          <div class="flex items-center space-x-2">
+            <i class="far fa-calendar-alt text-gray-700 text-base"></i>
+            <span class="text-sm font-normal">Today, 10:30 AM - 1:30 PM</span>
+          </div>
+          <i class="fas fa-chevron-down text-gray-700 text-xs"></i>
+        </button>
+      </label>
+
+      <label>
+        <span class="mb-1 text-[10px] font-normal text-gray-500">Filtros</span>
+        <button
+          class="w-full border border-gray-300 rounded-md pl-9 pr-3 py-2 text-sm text-gray-900 flex items-center justify-between focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          type="button">
+          <i class="fas fa-sliders-h text-sm"> </i>
+        </button>
+      </label>
+
+      <label>
+        <span class="mb-1 text-[10px] font-normal text-gray-500">Seleccione</span>
+        <button
+          class="flex items-center space-x-2 border border-gray-300 rounded-md px-3 py-1 text-xs font-normal text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          type="button">
+          <i class="fas fa-car text-sm"></i>
+          <span>Tipo Vehiculo</span>
+        </button>
+      </label>
+    </form>
+
+    <div *ngFor="let Parqueaderos of Parqueaderos"
+      class="bg-white border border-green-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition group m-3">
+
+      <!-- Card Image -->
+      <div class="relative h-48 overflow-hidden">
+        <img [src]="'https://images.pexels.com/photos/760710/pexels-photo-760710.jpeg'" [alt]="Parqueaderos.nombre"
+          class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+        <!-- Status Badge -->
+        <div 
+        [class]="'absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-medium text-bold'" 
+        [ngClass]="{
+                'text-green-400': Parqueaderos.estado === true,
+                'text-red-400': !Parqueaderos.estado
+              }">
+        {{ getStatusText(Parqueaderos!.estado) }}
+        </div>
+      </div>
+
+      <!-- Card Content -->
+      <div class="p-6">
+        <h3 class="text-xl font-bold text-green-900 mb-2 line-clamp-1">{{ Parqueaderos.nombre }}</h3>
+
+        <!-- Location -->
+        <div class="flex items-start gap-2 text-gray-600 mb-3">
+          <fa-icon [icon]="locationIcon" class="mt-1 text-green-600 flex-shrink-0"></fa-icon>
+          <span class="line-clamp-2 text-sm">{{ Parqueaderos.direccion }}</span>
+        </div>
+
+        <!-- Key Details Grid -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <!-- Capacity -->
+          <div class="flex items-center gap-2">
+            <fa-icon [icon]="carIcon" class="text-green-600"></fa-icon>
+            <div class="text-sm">
+              <div class="text-gray-500">Capacidad</div>
+              <div class="font-semibold">{{ Parqueaderos.numeroCeldas }} lugares</div>
+            </div>
+          </div>
+
+          <!-- Available Spots -->
+          <div class="flex items-center gap-2">
+            <fa-icon [icon]="ParqueaderoIcon" class="text-green-600"></fa-icon>
+            <div class="text-sm">
+              <div class="text-gray-500">Disponibles</div>
+              <div class="font-semibold">{{ Parqueaderos.direccion }} lugares</div>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="flex items-center gap-2">
+            <fa-icon [icon]="moneyIcon" class="text-green-600"></fa-icon>
+            <div class="text-sm">
+              <div class="text-gray-500">Tarifa</div>
+              <div class="font-semibold">${{ Parqueaderos.tarifaHora }}/hora</div>
+            </div>
+          </div>
+
+          <!-- Hours -->
+          <div class="flex items-center gap-2">
+            <fa-icon [icon]="clockIcon" class="text-green-600"></fa-icon>
+            <div class="text-sm">
+              <div class="text-gray-500">Horario</div>
+              <div class="font-semibold line-clamp-1">{{ Parqueaderos.horarioAtencion }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating if available -->
+        <div *ngIf="Parqueaderos.calificacion" class="flex items-center gap-1 mb-4">
+          <fa-icon [icon]="starIcon" class="text-yellow-500"></fa-icon>
+          <span class="font-medium">{{ Parqueaderos.calificacion }}</span>
+          <span class="text-gray-500 text-sm">(32 opiniones)</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-between mt-4">
+          <!-- Botones de acción (comentados) -->
+        </div>
+      </div>
+      <div class="flex justify-center m-4">
+        <button
+          class="px-4 py-2 bg-white border border-green-600 text-green-700 rounded-lg hover:bg-green-50 transition"
+          (click)="openReservationModal(Parqueaderos)"
+          >
+          Reservar
+      </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer
+    class="bg-gradient-to-r from-[#40916C] via-[#52B788] to-[#1B4332] border-t border-green-400/30 backdrop-blur-md text-center text-sm text-white py-4 mt-auto">
+    © 2025 Parking Pro. Todos los derechos reservados.
+  </footer>
+</div>

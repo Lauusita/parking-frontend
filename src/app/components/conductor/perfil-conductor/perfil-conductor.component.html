@@ -1,0 +1,117 @@
+<div class="min-h-screen bg-white flex flex-col">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#40916C] via-[#52B788] to-[#1B4332] shadow-lg p-4">
+    <div class="flex items-center justify-between max-w-7xl mx-auto">
+      <h1 class="text-2xl font-bold text-white">Mi Perfil</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-4 py-8 flex flex-col items-center">
+    <!-- Tarjeta de usuario -->
+    <div class="w-full max-w-xl bg-gradient-to-r from-green-100 via-green-50 to-green-100 rounded-2xl shadow-2xl p-8 flex flex-col items-center mb-8 relative">
+      <div class="absolute top-4 right-4 flex gap-2">
+        <button (click)="toggleEdit()" [class]="isEditing ? 'bg-rose-shadow' : 'bg-green-400'" class="p-2 rounded-full text-green-900 hover:opacity-80 transition shadow">
+          <fa-icon [icon]="isEditing ? cancelIcon : editIcon"></fa-icon>
+        </button>
+        @if (!isEditing) {
+          <button (click)="openDeleteModal()" class="bg-rose-shadow p-2 rounded-full text-white hover:opacity-80 transition shadow">
+            <fa-icon [icon]="deleteIcon"></fa-icon>
+          </button>
+        }
+      </div>
+      <div class="w-28 h-28 rounded-full bg-green-400 flex items-center justify-center mb-4 shadow-lg">
+        <fa-icon [icon]="userIcon" class="text-5xl text-green-900"></fa-icon>
+      </div>
+      <h2 class="text-2xl font-bold text-green-900 mb-1">{{ cond.nombre }} {{ cond.apellido }}</h2>
+      <p class="text-green-800/80 mb-2">{{ cond.correo }}</p>
+      <span class="inline-block bg-green-200 text-green-900 text-xs px-3 py-1 rounded-full mb-2">Conductor</span>
+    </div>
+
+    <!-- Información personal -->
+    <div class="w-full max-w-xl grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="flex items-center gap-3 bg-white rounded-xl shadow p-4">
+        <fa-icon [icon]="phoneIcon" class="text-green-400 text-xl"></fa-icon>
+        <div>
+          <p class="text-green-800/60 text-xs">Teléfono</p>
+          <p class="text-green-900 font-semibold">{{ cond.telefono }}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-xl shadow p-4">
+        <fa-icon [icon]="idCardIcon" class="text-green-400 text-xl"></fa-icon>
+        <div>
+          <p class="text-green-800/60 text-xs">Tipo de Documento</p>
+          <p class="text-green-900 font-semibold">{{ cond.tipoDocumento }}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-xl shadow p-4">
+        <fa-icon [icon]="idCardIcon" class="text-green-400 text-xl"></fa-icon>
+        <div>
+          <p class="text-green-800/60 text-xs">Número de Documento</p>
+          <p class="text-green-900 font-semibold">{{ cond.numeroDocumento }}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-xl shadow p-4">
+        <fa-icon [icon]="emailIcon" class="text-green-400 text-xl"></fa-icon>
+        <div>
+          <p class="text-green-800/60 text-xs">Correo</p>
+          <p class="text-green-900 font-semibold">{{ cond.correo }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edición -->
+    @if (isEditing) {
+      <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl p-6 mb-8 animate-fade-in">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-green-900">Nombre</label>
+            <input [value]="cond.nombre" class="mt-1 block w-full rounded-md border-gray-300 bg-green-50 p-2" type="text">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-green-900">Apellido</label>
+            <input [value]="cond.apellido" class="mt-1 block w-full rounded-md border-gray-300 bg-green-50 p-2" type="text">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-green-900">Teléfono</label>
+            <input [value]="cond.telefono" class="mt-1 block w-full rounded-md border-gray-300 bg-green-50 p-2" type="tel">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-green-900">Tipo de Documento</label>
+            <select [value]="cond.tipoDocumento" class="mt-1 block w-full rounded-md border-gray-300 bg-green-50 p-2">
+              <option value="CC">CC</option>
+              <option value="PASSPORT">Pasaporte</option>
+              <option value="NIT">NIT</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-green-900">Número de Documento</label>
+            <input [value]="cond.numeroDocumento" class="mt-1 block w-full rounded-md border-gray-300 bg-green-50 p-2" type="text">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-green-900">Correo</label>
+            <input [value]="cond.correo" class="mt-1 block w-full rounded-md border-gray-300 bg-green-50 p-2" type="email">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-green-900">Contraseña</label>
+            <input [value]="cond.contrasena" class="mt-1 block w-full rounded-md border-gray-300 bg-green-50 p-2" type="password">
+          </div>
+        </div>
+        <div class="flex justify-end mt-6 gap-2">
+          <button (click)="edit()" class="bg-green-400 text-green-900 px-4 py-2 rounded-md hover:opacity-80 transition flex items-center gap-2 font-semibold shadow">
+            <fa-icon [icon]="saveIcon"></fa-icon>
+            Guardar Cambios
+          </button>
+          <button (click)="toggleEdit()" class="bg-gray-200 text-green-900 px-4 py-2 rounded-md hover:bg-gray-300 transition font-semibold shadow">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    }
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-[#40916C] via-[#52B788] to-[#1B4332] border-t border-green-400/30 backdrop-blur-md text-center text-sm text-white py-4 mt-auto">
+    © 2025 Parking Pro. Todos los derechos reservados.
+  </footer>
+</div>

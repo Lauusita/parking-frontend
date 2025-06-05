@@ -1,0 +1,153 @@
+<div class="min-h-screen bg-white flex flex-col">
+  <!-- Header -->
+  <header
+    class="bg-gradient-to-r from-[#1B4332] via-[#2D6A4F] to-[#95D5B2] shadow-lg p-4 flex justify-between items-center border-b border-green-400/30">
+    <div class="flex items-center gap-3">
+      <fa-icon [icon]="ReservaIcon" class="text-3xl text-green-100 drop-shadow"></fa-icon>
+      <h1 class="text-2xl font-bold text-white tracking-wide drop-shadow">Reserva Pro</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <button routerLink="/create-account/propietario"
+        class="bg-green-100 text-green-900 px-5 py-2 rounded-full font-semibold shadow hover:bg-green-200 transition">
+        Cerrar Sesión
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex flex-col items-center px-4 py-12">
+    <div class="w-full max-w-7xl">
+      <!-- Page Title and Actions -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <div>
+          <h2 class="text-3xl font-bold text-green-900 mb-2">Mis Reservas</h2>
+          <p class="text-green-800/70">Gestiona todos tus reservas</p>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+        <p>cargando...</p>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="error && !isLoading"
+        class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center">
+        {{ error }}
+        <button (click)="loadReservas()" class="ml-2 underline hover:text-red-800">Reintentar</button>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!isLoading && !error && Reservas.length === 0"
+        class="flex flex-col items-center justify-center bg-green-50 border border-green-200 rounded-xl p-8 shadow-sm">
+        <app-empty-state title="No tienes reservas registrados :(" message="¡Reserva tu primer Reserva!"
+          buttonText="Buscar" buttonLink="/conductor/Reservas" [icon]="ReservaIcon">
+        </app-empty-state>
+      </div>
+
+      <!-- Reservas Grid -->
+      <div *ngIf="!isLoading && Reservas.length > 0"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fadeIn">
+
+        <!-- Reservas Card -->
+        <div *ngFor="let reservas of Reservas"
+          class="bg-white border border-green-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition group">
+
+          <!-- Card Image -->
+          <div class="relative h-48 overflow-hidden">
+            <img [src]="'https://images.pexels.com/photos/760710/pexels-photo-760710.jpeg'"
+              [alt]="reservas.nombreParqueadero"
+              class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+
+            <!-- Status Badge -->
+            <div [class]="'absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-medium'" 
+             [ngClass]="{
+                'text-green-400': reservas.disponible,
+                'text-red-400': !reservas.disponible
+              }">
+              {{ getStatusText(reservas.disponible) }}
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-green-900 mb-2 line-clamp-1">{{ reservas.nombreParqueadero }}</h3>
+
+            <!-- Location -->
+            <div class="flex items-start gap-2 text-gray-600 mb-3">
+              <fa-icon [icon]="checkIcon" class="mt-1 text-green-600 flex-shrink-0"></fa-icon>
+              <span class="line-clamp-2 text-sm">{{ reservas.estado }}</span>
+            </div>
+
+            <!-- Key Details Grid -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <!-- Capacity -->
+              <div class="flex items-center gap-2">
+                <fa-icon [icon]="carIcon" class="text-green-600"></fa-icon>
+                <div class="text-sm">
+                  <div class="text-gray-500">Tipo de Vehículo</div>
+                  <div class="font-semibold">{{ reservas.tipoVehiculo }}</div>
+                </div>
+              </div>
+
+              <!-- Available Spots -->
+              <div class="flex items-center gap-2">
+                <fa-icon [icon]="calendarIcon" class="text-green-600"></fa-icon>
+                <div class="text-sm">
+                  <div class="text-gray-500">Fecha de reserva</div>
+                  <div class="font-semibold">{{ reservas.fechaReserva }}</div>
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="flex items-center gap-2">
+                <fa-icon [icon]="moneyIcon" class="text-green-600"></fa-icon>
+                <div class="text-sm">
+                  <div class="text-gray-500">Tarifa</div>
+                  <div class="font-semibold">${{ reservas.valorEstimado }}/hora</div>
+                </div>
+              </div>
+
+              <!-- Hours -->
+              <div class="flex items-center gap-2">
+                <fa-icon [icon]="clockIcon" class="text-green-600"></fa-icon>
+                <div class="text-sm">
+                  <div class="text-gray-500">Hora inicio</div>
+                  <div class="font-semibold line-clamp-1">{{ reservas.horaInicio }} am </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <fa-icon [icon]="clockIcon" class="text-green-600"></fa-icon>
+                <div class="text-sm">
+                  <div class="text-gray-500">Hora fin</div>
+                  <div class="font-semibold line-clamp-1">{{ reservas.horaFin}} pm  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Action Buttons -->
+            <div class="flex justify-between mt-4">
+
+
+              <!-- <div class="flex gap-2">
+                <button (click)="editreservas(reservas.idReserva)" 
+                        class="p-2 rounded-lg text-blue-600 hover:bg-blue-50 transition">
+                  <fa-icon [icon]="editIcon"></fa-icon>
+                </button>
+                <button (click)="deleteReservas(Reservas.idReserva)" 
+                        class="p-2 rounded-lg text-red-600 hover:bg-red-50 transition">
+                  <fa-icon [icon]="deleteIcon"></fa-icon>
+                </button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer
+    class="bg-gradient-to-r from-[#1B4332] via-[#2D6A4F] to-[#95D5B2] border-t border-green-400/30 backdrop-blur-md text-center text-sm text-white py-4">
+    © 2025 Reservas Pro. Todos los derechos reservados.
+  </footer>
+</div>

@@ -1,0 +1,26 @@
+<div 
+  class="fixed inset-0 flex items-center justify-center bg-opacity-50 font-[Poppins]"
+  [ngClass]="{
+    'animate-slideUpFade': matDialogRef
+  }"  
+>
+  <div class="text-white flex flex-col rounded-lg w-11/12 max-w-md p-6 bg-[#030024] ">
+    <fa-icon [icon]="icons.delete" [class]="'fa-4x'" class="flex justify-center"></fa-icon>
+    <br>
+    <h1 class="text-xl font-semibold mb-4 flex text-center justify-center text-yellow-300">{{ data.title }}</h1>
+    <p class="mb-6 flex text-center">{{ data.message }}</p>
+    <div class="flex justify-center space-x-4">
+      <button
+        class="text-white flex lg:text-lg md:text-lg justify-end m-3 p-3 px-5 rounded-lg bg-[#030024] gap-x-3 hover:bg-[#030045] sm:text-2xs"
+        (click)="close()"
+      >
+      <fa-icon [icon]="icons.cancel"  [ngStyle]="{ color: '#ffff' }"></fa-icon> 
+        Cancel
+      </button>
+      <button class="text-white flex lg:text-lg md:text-lg justify-end m-3 p-3 px-5 rounded-lg bg-[#900C3F] gap-x-3 hover:bg-[#b0124f] sm:text-2xs" (click)="confirmDelete()">
+        <fa-icon [icon]="icons.delete"  [ngStyle]="{ color: '#ffff' }"></fa-icon> 
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
